@@ -13,7 +13,7 @@ app.post('/webhook', async (req, res) => {
     const capiPayload = {
       event_name: "Purchase",
       event_time: Math.floor(Date.now() / 1000),
-      event_id: pedido_${pedido.numero},
+      event_id: `pedido_${pedido.numero}`,
       action_source: "website",
       event_source_url: "https://afterstoree.com.br/checkout/success",
       user_data: {},
