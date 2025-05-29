@@ -24,12 +24,12 @@ app.post('/webhook', async (req, res) => {
     };
 
     await axios.post(
-      ${process.env.GTM_SERVER_URL}?pixel_id=${process.env.META_PIXEL_ID},
+      `${process.env.GTM_SERVER_URL}?pixel_id=${process.env.META_PIXEL_ID}`,
       capiPayload,
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': Bearer ${process.env.STAPE_API_KEY}
+          'Authorization': `Bearer ${process.env.STAPE_API_KEY}`
         }
       }
     );
@@ -42,4 +42,4 @@ app.post('/webhook', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(Middleware ativo na porta ${PORT}));
+app.listen(PORT, () => console.log(`Middleware ativo na porta ${PORT}`));
