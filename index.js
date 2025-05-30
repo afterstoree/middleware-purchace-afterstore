@@ -22,16 +22,17 @@ app.post('/webhook', async (req, res) => {
       action_source: "website",
       event_source_url: "https://afterstoree.com.br/checkout/success",
       user_data: {
-        em: [pedido.cliente?.email],
-        ph: [pedido.cliente?.telefone_celular]
+        em: pedido.cliente?.email ? [pedido.cliente.email] : [],
+        ph: pedido.cliente?.telefone_celular ? [pedido.cliente.telefone_celular] : []
       },
       custom_data: {
-        value: parseFloat(pedido.valor_total),
+        value: isNaN(parseFloat(pedido.valor_total)) ? 0 : parseFloat(pedido.valor_total),
         currency: "BRL"
       }
     };
 
-    console.log("Payload final:", JSON.stringify(capiPayload, null, 2));
+    console.log("📦 Payload final:", JSON.stringify(capiPayload, null, 2));
+    console.log("🔍 Dados recebidos:", JSON.stringify(pedido, null, 2));
 
     await axios.post(
       `${process.env.GTM_SERVER_URL}?pixel_id=${process.env.META_PIXEL_ID}`,
@@ -46,12 +47,12 @@ app.post('/webhook', async (req, res) => {
 
     res.status(200).json({ status: 'Evento enviado com sucesso' });
   } catch (error) {
-    console.error('Erro ao enviar para o GTM Server:', error.message);
+    console.error('❌ Erro ao enviar para o GTM Server:', error.message);
     res.status(500).json({ error: 'Erro interno ao processar o webhook' });
   }
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Middleware ativo na porta ${PORT}`);
+  console.log(`🚀 Middleware ativo na porta ${PORT}`);
 });
