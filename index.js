@@ -1,3 +1,4 @@
+
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
@@ -25,10 +26,12 @@ app.post('/webhook', async (req, res) => {
         ph: [pedido.cliente?.telefone_celular]
       },
       custom_data: {
-        value: pedido.valor_total,
+        value: parseFloat(pedido.valor_total),
         currency: "BRL"
       }
     };
+
+    console.log("Payload final:", JSON.stringify(capiPayload, null, 2));
 
     await axios.post(
       `${process.env.GTM_SERVER_URL}?pixel_id=${process.env.META_PIXEL_ID}`,
