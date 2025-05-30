@@ -1,15 +1,16 @@
 {
   "name": "webhook-middleware-meta",
   "version": "1.0.0",
-  "description": "Middleware para receber webhooks da Loja Integrada e enviar eventos de compra confirmada para o Meta CAPI via GTM Server-Side",
+  "description": "Middleware para receber webhooks da Loja Integrada e enviar eventos para o Meta CAPI via GTM Server-Side",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "express": "^4.18.2"
   }
 }
